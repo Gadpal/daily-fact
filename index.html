@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>העובדה היומית</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;700;900&family=Heebo:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <!-- ============================================================
+       DAILY CONTENT — edit ONLY this block each day
+       ============================================================ -->
+  <script>
+    const daily = {
+      // Fact number shown as label and decorative background
+      number: "01",
+
+      // Category tag shown above the title
+      tag: {
+        he: "🧠 מדע",
+        en: "🧠 Science"
+      },
+
+      // Main fact title
+      title: {
+        he: "האוקטופוס הוא בעל החיים החכם ביותר בים",
+        en: "The Octopus Is the Ocean's Smartest Creature"
+      },
+
+      // Main fact body text
+      body: {
+        he: "לאוקטופוסים יש שלושה לבבות ותשע מוחות — מוח מרכזי ומוח נפרד בכל זרוע. הם יכולים לפתוח צנצנות, לפתור פאזלים, ולהשתמש בכלים. מה שמדהים עוד יותר: הם חיים בממוצע שנה עד שלוש שנים בלבד, ובכל זאת מספיקים להיות גאונים.",
+        en: "Octopuses have three hearts and nine brains — one central brain and one in each arm. They can open jars, solve puzzles, and use tools. What's even more remarkable: they live only one to three years on average, yet still manage to be geniuses."
+      },
+
+      // YouTube song of the day
+      youtube: {
+        url:    "https://www.youtube.com/watch?v=KQetemT1sWc",
+        song:   "Here Comes the Sun",
+        artist: "The Beatles"
+      },
+
+      // Funny fact popup
+      funny: {
+        he: "אם אוקטופוס היה מגיש מועמדות לצוות שלנו, הוא היה מטפל בשמונה תיקטים במקביל — בלי לפתוח Jira.",
+        en: "If an octopus applied to join our team, it could handle eight tickets simultaneously — without ever opening Jira."
+      },
+
+      // Deep dive popup
+      deep: {
+        he: "המוחות בזרועות פועלים באופן עצמאי — כל זרוע יכולה 'להחליט' איך לתפוס אובייקט מבלי לשלוח שאלה למוח הראשי. זה קצת כמו microservices ביולוגיים.",
+        en: "The arm-brains work independently — each arm can 'decide' how to grip an object without consulting the central brain. Think: biological microservices."
+      }
+    };
+  </script>
+  <!-- ============================================================ -->
+
+  <style>
+    :root {
+      --cream:       #f7f3ee;
+      --warm-white:  #fffefb;
+      --ink:         #2b1f14;
+      --soft-ink:    #4a3728;
+      --muted:       #9c8a7a;
+      --accent:      #7a4a2c;
+      --accent-mid:  #a0622e;
+      --accent-light:#c89070;
+      --rule:        #ddd0c0;
+      --card-bg:     #ffffff;
+      --shadow:      0 2px 28px rgba(43,31,20,0.10);
+
+      --font-display-he: 'Frank Ruhl Libre', serif;
+      --font-body-he:    'Heebo', sans-serif;
+      --font-display-en: 'Playfair Display', serif;
+      --font-body-en:    'Lato', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--font-body-he);
+      min-height: 100vh;
+      direction: rtl;
+    }
+    body.en {
+      font-family: var(--font-body-en);
+      direction: ltr;
+    }
+
+    /* ── BANNER ── */
+    .banner-wrap {
+      width: 100%; height: 200px;
+      background: linear-gradient(120deg, #2b1f14 0%, #5a3520 55%, #a0622e 100%);
+      position: relative; overflow: hidden;
+    }
+    .banner-wrap::after {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        45deg, transparent, transparent 40px,
+        rgba(255,255,255,0.03) 40px, rgba(255,255,255,0.03) 80px
+      );
+    }
+    .banner-wrap img.banner-img {
+      width: 100%; height: 100%; object-fit: cover; opacity: 0.82; display: block;
+    }
+    .banner-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 6px;
+      position: relative; z-index: 1;
+    }
+    .banner-logo-text {
+      font-family: var(--font-display-he);
+      font-size: 2.4rem; font-weight: 900; color: #fff;
+      text-shadow: 0 2px 14px rgba(0,0,0,0.5);
+    }
+    .banner-tagline {
+      font-size: 0.8rem; color: rgba(255,255,255,0.65);
+      font-weight: 300; letter-spacing: 3px;
+    }
+    body.en .banner-logo-text { font-family: var(--font-display-en); }
+
+    /* ── LAYOUT ── */
+    .page-wrap { max-width: 780px; margin: 0 auto; padding: 0 28px 60px; }
+
+    /* ── TOP BAR ── */
+    .top-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 0 12px;
+    }
+    .top-bar-right { display: flex; align-items: center; gap: 10px; }
+
+    .tag-badge {
+      background: var(--accent); color: #fff;
+      padding: 5px 14px; border-radius: 999px;
+      font-size: 0.78rem; font-weight: 700;
+    }
+    .date-stamp { font-size: 0.78rem; color: var(--muted); }
+
+    .lang-btn {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--accent); color: #fff;
+      border: none; border-radius: 20px;
+      padding: 6px 16px; font-size: 0.78rem; font-weight: 600;
+      cursor: pointer; letter-spacing: 1px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .lang-btn:hover { background: var(--accent-mid); transform: scale(1.04); }
+
+    /* ── YOUTUBE ── */
+    .yt-row { display: flex; justify-content: center; margin-bottom: 24px; }
+    .yt-btn {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: var(--warm-white); border: 1.5px solid var(--rule);
+      border-radius: 14px; padding: 12px 22px;
+      text-decoration: none; color: var(--soft-ink);
+      box-shadow: var(--shadow); max-width: 420px; width: 100%;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+    .yt-btn:hover {
+      border-color: #cc2200;
+      box-shadow: 0 4px 22px rgba(204,34,0,0.14);
+      transform: translateY(-2px);
+    }
+    .yt-icon {
+      width: 32px; height: 32px; flex-shrink: 0;
+      background: #ff0000; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .yt-icon svg { width: 16px; height: 16px; fill: #fff; }
+    .yt-label { display: flex; flex-direction: column; line-height: 1.35; overflow: hidden; }
+    .yt-caption { font-size: 0.7rem; color: var(--muted); }
+    .yt-song-name { font-size: 0.92rem; font-weight: 700; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .yt-artist { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none; border-top: 1.5px solid var(--rule);
+      margin: 0 0 28px; position: relative;
+    }
+    .divider::after {
+      content: '◆'; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--cream); color: var(--accent-light);
+      font-size: 0.55rem; padding: 0 12px;
+    }
+
+    /* ── FACT CARD ── */
+    .fact-card {
+      background: var(--card-bg); border-radius: 18px;
+      padding: 36px 40px 28px;
+      box-shadow: var(--shadow); border: 1px solid var(--rule);
+      animation: fadeUp 0.5s ease both;
+      position: relative; overflow: hidden;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fact-bg-number {
+      position: absolute; bottom: -10px; left: 20px;
+      font-family: var(--font-display-he);
+      font-size: 8rem; font-weight: 900;
+      color: var(--rule); opacity: 0.5;
+      line-height: 1; user-select: none; pointer-events: none; z-index: 0;
+    }
+    body.en .fact-bg-number { right: 20px; left: auto; }
+    .fact-content { position: relative; z-index: 1; }
+
+    .fact-kicker {
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 3px; color: var(--accent-mid);
+      text-transform: uppercase; margin-bottom: 10px;
+    }
+    .fact-title {
+      font-family: var(--font-display-he);
+      font-size: 1.65rem; font-weight: 700; line-height: 1.45;
+      color: var(--ink); margin-bottom: 18px;
+    }
+    body.en .fact-title { font-family: var(--font-display-en); font-style: italic; }
+
+    .fact-body {
+      font-size: 1rem; line-height: 1.9;
+      color: var(--soft-ink); font-weight: 300; margin-bottom: 26px;
+    }
+
+    /* ── EXTRAS ── */
+    .extras-strip {
+      display: flex; gap: 10px; flex-wrap: wrap;
+      padding-top: 20px; border-top: 1px solid var(--rule);
+    }
+    .extra-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 18px; border-radius: 22px;
+      border: 1.5px solid var(--rule); background: transparent;
+      cursor: pointer; font-size: 0.82rem; font-weight: 500;
+      color: var(--soft-ink); font-family: inherit;
+      transition: all 0.18s;
+    }
+    .extra-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; transform: translateY(-1px); }
+
+    /* ── POPUP ── */
+    .overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(43,31,20,0.55); z-index: 100;
+      backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 24px;
+    }
+    .overlay.active { display: flex; animation: fadeIn 0.2s ease; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .popup {
+      background: var(--warm-white); border-radius: 20px;
+      max-width: 460px; width: 100%; padding: 38px 32px 30px;
+      position: relative; box-shadow: 0 24px 64px rgba(43,31,20,0.28);
+      animation: popIn 0.25s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    @keyframes popIn { from { opacity: 0; transform: scale(0.88); } to { opacity: 1; transform: scale(1); } }
+    .popup-close {
+      position: absolute; top: 14px; left: 14px;
+      background: var(--rule); border: none; border-radius: 50%;
+      width: 30px; height: 30px; font-size: 0.95rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: var(--muted); transition: background 0.15s;
+    }
+    body.en .popup-close { right: 14px; left: auto; }
+    .popup-close:hover { background: var(--accent); color: #fff; }
+    .popup-emoji { font-size: 2.6rem; margin-bottom: 10px; text-align: center; }
+    .popup-title {
+      font-family: var(--font-display-he); font-size: 1.2rem; font-weight: 700;
+      margin-bottom: 12px; color: var(--ink); text-align: center;
+    }
+    body.en .popup-title { font-family: var(--font-display-en); }
+    .popup-body { font-size: 0.95rem; line-height: 1.78; color: var(--soft-ink); font-weight: 300; text-align: center; }
+
+    /* ── FOOTER ── */
+    .footer { text-align: center; margin-top: 30px; font-size: 0.72rem; color: var(--muted); }
+
+    /* ── DESKTOP ── */
+    @media (min-width: 640px) {
+      .banner-wrap { height: 230px; }
+      .banner-logo-text { font-size: 2.8rem; }
+      .fact-card { padding: 44px 48px 34px; }
+      .fact-title { font-size: 1.9rem; }
+      .fact-body { font-size: 1.05rem; }
+      .fact-bg-number { font-size: 10rem; }
+      .yt-btn { width: auto; }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 480px) {
+      .page-wrap { padding: 0 16px 48px; }
+      .banner-wrap { height: 170px; }
+      .banner-logo-text { font-size: 1.9rem; }
+      .fact-card { padding: 28px 22px 22px; }
+      .fact-title { font-size: 1.35rem; }
+      .fact-bg-number { font-size: 6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ BANNER ══ -->
+  <div class="banner-wrap">
+    <!-- To use your logo image, replace the div below with:
+         <img class="banner-img" src="your-logo.png" alt="העובדה היומית"> -->
+    <div class="banner-placeholder">
+      <div class="banner-logo-text" id="banner-title"></div>
+      <div class="banner-tagline" id="banner-tagline"></div>
+    </div>
+  </div>
+
+  <div class="page-wrap">
+
+    <!-- ══ TOP BAR ══ -->
+    <div class="top-bar">
+      <div class="top-bar-right">
+        <div class="tag-badge" id="tag"></div>
+        <div class="date-stamp" id="datestamp"></div>
+      </div>
+      <button class="lang-btn" onclick="toggleLang()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+             stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <span id="lang-label">EN</span>
+      </button>
+    </div>
+
+    <!-- ══ YOUTUBE ══ -->
+    <div class="yt-row">
+      <a class="yt-btn" id="yt-link" href="#" target="_blank" rel="noopener">
+        <div class="yt-icon">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div class="yt-label">
+          <span class="yt-caption" id="yt-caption"></span>
+          <span class="yt-song-name" id="yt-song"></span>
+          <span class="yt-artist" id="yt-artist"></span>
+        </div>
+      </a>
+    </div>
+
+    <!-- ══ DIVIDER ══ -->
+    <hr class="divider" />
+
+    <!-- ══ FACT CARD ══ -->
+    <div class="fact-card">
+      <div class="fact-bg-number" id="bg-number"></div>
+      <div class="fact-content">
+        <div class="fact-kicker" id="kicker"></div>
+        <div class="fact-title" id="fact-title"></div>
+        <div class="fact-body" id="fact-body"></div>
+        <div class="extras-strip">
+          <button class="extra-btn" onclick="openPopup('funny')" id="btn-funny"></button>
+          <button class="extra-btn" onclick="openPopup('deep')" id="btn-deep"></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer" id="footer"></div>
+  </div>
+
+  <!-- ══ POPUP: Funny ══ -->
+  <div class="overlay" id="popup-funny" onclick="closeOnOverlay(event,'funny')">
+    <div class="popup">
+      <button class="popup-close" onclick="closePopup('funny')">✕</button>
+      <div class="popup-emoji">🤣</div>
+      <div class="popup-title" id="popup-funny-title"></div>
+      <div class="popup-body" id="popup-funny-body"></div>
+    </div>
+  </div>
+
+  <!-- ══ POPUP: Deep ══ -->
+  <div class="overlay" id="popup-deep" onclick="closeOnOverlay(event,'deep')">
+    <div class="popup">
+      <button class="popup-close" onclick="closePopup('deep')">✕</button>
+      <div class="popup-emoji">🧠</div>
+      <div class="popup-title" id="popup-deep-title"></div>
+      <div class="popup-body" id="popup-deep-body"></div>
+    </div>
+  </div>
+
+  <script>
+    // ── State ──
+    let isHe = true;
+
+    const t = {
+      he: {
+        bannerTitle:   "💡 העובדה היומית",
+        bannerTagline: "משהו חדש. כל יום.",
+        ytCaption:     "🎵 שיר היום",
+        kicker:        "העובדה היומית",
+        btnFunny:      "😄 עובדה מצחיקה",
+        btnDeep:       "🔍 לעומק",
+        popupFunnyTitle: "עובדה מצחיקה",
+        popupDeepTitle:  "לעומק",
+        footer:        "200Apps · עובדה יומית · נוצר על ידי AI, נערך בידי אדם"
+      },
+      en: {
+        bannerTitle:   "💡 Daily Fact",
+        bannerTagline: "Something new. Every day.",
+        ytCaption:     "🎵 Song of the Day",
+        kicker:        "FACT OF THE DAY",
+        btnFunny:      "😄 Funny Fact",
+        btnDeep:       "🔍 Go Deeper",
+        popupFunnyTitle: "Funny Fact",
+        popupDeepTitle:  "Go Deeper",
+        footer:        "200Apps · Daily Fact · AI-generated, human-edited"
+      }
+    };
+
+    function render() {
+      const lang = isHe ? 'he' : 'en';
+      const ui   = isHe ? t.he : t.en;
+      const dateLocale = isHe ? 'he-IL' : 'en-US';
+
+      document.documentElement.lang = lang;
+      document.documentElement.dir  = isHe ? 'rtl' : 'ltr';
+      document.body.classList.toggle('en', !isHe);
+      document.getElementById('lang-label').textContent = isHe ? 'EN' : 'HE';
+
+      document.getElementById('banner-title').textContent   = ui.bannerTitle;
+      document.getElementById('banner-tagline').textContent = ui.bannerTagline;
+      document.getElementById('datestamp').textContent =
+        new Date().toLocaleDateString(dateLocale, { weekday:'long', day:'numeric', month:'long' });
+
+      document.getElementById('tag').textContent         = daily.tag[lang];
+      document.getElementById('yt-caption').textContent  = ui.ytCaption;
+      document.getElementById('yt-song').textContent     = daily.youtube.song;
+      document.getElementById('yt-artist').textContent   = daily.youtube.artist;
+      document.getElementById('yt-link').href            = daily.youtube.url;
+
+      document.getElementById('bg-number').textContent   = daily.number;
+      document.getElementById('kicker').textContent      = ui.kicker + " #" + daily.number;
+      document.getElementById('fact-title').textContent  = daily.title[lang];
+      document.getElementById('fact-body').textContent   = daily.body[lang];
+
+      document.getElementById('btn-funny').textContent   = ui.btnFunny;
+      document.getElementById('btn-deep').textContent    = ui.btnDeep;
+
+      document.getElementById('popup-funny-title').textContent = ui.popupFunnyTitle;
+      document.getElementById('popup-funny-body').textContent  = daily.funny[lang];
+      document.getElementById('popup-deep-title').textContent  = ui.popupDeepTitle;
+      document.getElementById('popup-deep-body').textContent   = daily.deep[lang];
+
+      document.getElementById('footer').textContent = ui.footer;
+    }
+
+    function toggleLang() { isHe = !isHe; render(); }
+
+    // ── Popups ──
+    function openPopup(id) {
+      document.getElementById('popup-' + id).classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closePopup(id) {
+      document.getElementById('popup-' + id).classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    function closeOnOverlay(e, id) {
+      if (e.target === document.getElementById('popup-' + id)) closePopup(id);
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.overlay.active').forEach(el => el.classList.remove('active'));
+        document.body.style.overflow = '';
+      }
+    });
+
+    // ── Init ──
+    render();
+  </script>
+</body>
+</html>
