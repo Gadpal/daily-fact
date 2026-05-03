@@ -14,8 +14,7 @@
   <meta property="og:title"       content="💡 האוקטופוס הוא בעל החיים החכם ביותר בים" />
   <meta property="og:description" content="לאוקטופוסים יש שלושה לבבות ותשע מוחות. לחץ לקריאת העובדה המלאה של היום 🧠" />
   <meta property="og:url"         content="https://gadpal.github.io/daily-fact/" />
-  <!-- REPLACE: upload a 1200x630px banner image to your repo and point to it below -->
-  <meta property="og:image"       content="https://gadpal.github.io/daily-fact/daily_fact_edited.png" />
+  <meta property="og:image"       content="https://gadpal.github.io/daily-fact/og-image.png" />
   <meta property="og:image:width"  content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card"       content="summary_large_image" />
@@ -319,9 +318,13 @@
 <body>
 
   <!-- ══ BANNER ══ -->
-<img class="banner-img" 
-     src="https://gadpal.github.io/daily-fact/daily_fact_edited.png" 
-     alt="העובדה היומית">
+  <div class="banner-wrap">
+    <!-- To use your logo: replace the div below with:
+         <img class="banner-img" src="YOUR_IMAGE_URL" alt="העובדה היומית"> -->
+    <div class="banner-placeholder">
+      <div class="banner-logo-text" id="banner-title"></div>
+      <div class="banner-tagline" id="banner-tagline"></div>
+    </div>
   </div>
 
   <div class="page-wrap">
@@ -398,37 +401,36 @@
   </div>
 
   <script>
-    // ── State ──
     let isHe = true;
 
     const t = {
       he: {
-        bannerTitle:   "💡 העובדה היומית",
-        bannerTagline: "משהו חדש. כל יום.",
-        ytCaption:     "🎵 שיר היום",
-        kicker:        "העובדה היומית",
-        btnFunny:      "😄 עובדה מצחיקה",
-        btnDeep:       "🔍 לעומק",
+        bannerTitle:     "💡 העובדה היומית",
+        bannerTagline:   "משהו חדש. כל יום.",
+        ytCaption:       "🎵 שיר היום",
+        kicker:          "העובדה היומית",
+        btnFunny:        "😄 עובדה מצחיקה",
+        btnDeep:         "🔍 לעומק",
         popupFunnyTitle: "עובדה מצחיקה",
         popupDeepTitle:  "לעומק",
-        footer:        "200Apps · עובדה יומית · נוצר על ידי AI, נערך בידי אדם"
+        footer:          "200Apps · עובדה יומית · נוצר על ידי AI, נערך בידי אדם"
       },
       en: {
-        bannerTitle:   "💡 Daily Fact",
-        bannerTagline: "Something new. Every day.",
-        ytCaption:     "🎵 Song of the Day",
-        kicker:        "FACT OF THE DAY",
-        btnFunny:      "😄 Funny Fact",
-        btnDeep:       "🔍 Go Deeper",
+        bannerTitle:     "💡 Daily Fact",
+        bannerTagline:   "Something new. Every day.",
+        ytCaption:       "🎵 Song of the Day",
+        kicker:          "FACT OF THE DAY",
+        btnFunny:        "😄 Funny Fact",
+        btnDeep:         "🔍 Go Deeper",
         popupFunnyTitle: "Funny Fact",
         popupDeepTitle:  "Go Deeper",
-        footer:        "200Apps · Daily Fact · AI-generated, human-edited"
+        footer:          "200Apps · Daily Fact · AI-generated, human-edited"
       }
     };
 
     function render() {
-      const lang = isHe ? 'he' : 'en';
-      const ui   = isHe ? t.he : t.en;
+      const lang       = isHe ? 'he' : 'en';
+      const ui         = isHe ? t.he : t.en;
       const dateLocale = isHe ? 'he-IL' : 'en-US';
 
       document.documentElement.lang = lang;
@@ -441,19 +443,19 @@
       document.getElementById('datestamp').textContent =
         new Date().toLocaleDateString(dateLocale, { weekday:'long', day:'numeric', month:'long' });
 
-      document.getElementById('tag').textContent         = daily.tag[lang];
-      document.getElementById('yt-caption').textContent  = ui.ytCaption;
-      document.getElementById('yt-song').textContent     = daily.youtube.song;
-      document.getElementById('yt-artist').textContent   = daily.youtube.artist;
-      document.getElementById('yt-link').href            = daily.youtube.url;
+      document.getElementById('tag').textContent        = daily.tag[lang];
+      document.getElementById('yt-caption').textContent = ui.ytCaption;
+      document.getElementById('yt-song').textContent    = daily.youtube.song;
+      document.getElementById('yt-artist').textContent  = daily.youtube.artist;
+      document.getElementById('yt-link').href           = daily.youtube.url;
 
-      document.getElementById('bg-number').textContent   = daily.number;
-      document.getElementById('kicker').textContent      = ui.kicker + " #" + daily.number;
-      document.getElementById('fact-title').textContent  = daily.title[lang];
-      document.getElementById('fact-body').textContent   = daily.body[lang];
+      document.getElementById('bg-number').textContent  = daily.number;
+      document.getElementById('kicker').textContent     = ui.kicker + " #" + daily.number;
+      document.getElementById('fact-title').textContent = daily.title[lang];
+      document.getElementById('fact-body').textContent  = daily.body[lang];
 
-      document.getElementById('btn-funny').textContent   = ui.btnFunny;
-      document.getElementById('btn-deep').textContent    = ui.btnDeep;
+      document.getElementById('btn-funny').textContent  = ui.btnFunny;
+      document.getElementById('btn-deep').textContent   = ui.btnDeep;
 
       document.getElementById('popup-funny-title').textContent = ui.popupFunnyTitle;
       document.getElementById('popup-funny-body').textContent  = daily.funny[lang];
@@ -465,7 +467,6 @@
 
     function toggleLang() { isHe = !isHe; render(); }
 
-    // ── Popups ──
     function openPopup(id) {
       document.getElementById('popup-' + id).classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -484,7 +485,6 @@
       }
     });
 
-    // ── Init ──
     render();
   </script>
 </body>
