@@ -1,3 +1,5 @@
+html
+
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -7,17 +9,16 @@
 
   <!-- ============================================================
        OG TAGS — update og:title and og:description each day
-       to match the daily fact (Teams / WhatsApp use these for preview)
        ============================================================ -->
-  <meta property="og:type"        content="website" />
-  <meta property="og:site_name"   content="העובדה היומית · 200Apps" />
-  <meta property="og:title"       content="💡 האוקטופוס הוא בעל החיים החכם ביותר בים" />
-  <meta property="og:description" content="לאוקטופוסים יש שלושה לבבות ותשע מוחות. לחץ לקריאת העובדה המלאה של היום 🧠" />
-  <meta property="og:url"         content="https://gadpal.github.io/daily-fact/" />
-  <meta property="og:image"       content="https://gadpal.github.io/daily-fact/og-image.png" />
+  <meta property="og:type"         content="website" />
+  <meta property="og:site_name"    content="העובדה היומית · 200Apps" />
+  <meta property="og:title"        content="🌌 'מאי הרביעי איתכם' – החג שהתחיל בטעות בריטית" />
+  <meta property="og:description"  content="יום מלחמת הכוכבים לא הומצא על ידי לוקאס או דיסני — אלא על ידי פוליטיקאים בריטים יבשים. לחץ לגלות את הסיפור המלא 🚀" />
+  <meta property="og:url"          content="https://gadpal.github.io/daily-fact/" />
+  <meta property="og:image"        content="https://gadpal.github.io/daily-fact/daily_fact.png" />
   <meta property="og:image:width"  content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta name="twitter:card"       content="summary_large_image" />
+  <meta name="twitter:card"        content="summary_large_image" />
   <!-- ============================================================ -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -28,62 +29,37 @@
        ============================================================ -->
   <script>
     const daily = {
-      // Fact number shown as label and decorative background
-      number: "01",
+      number: "02",
 
-      // Category tag shown above the title
       tag: {
-        he: "נקמת החנונים",
-        en: "Geeks4Geeks"
+        he: "🎬 תרבות",
+        en: "🎬 Culture"
       },
 
-      // Main fact title
       title: {
-        he: "החג שהתחיל בטעות בריטית",
-        en: "The Octopus Is the Ocean's Smartest Creature"
+        he: '"מאי הרביעי איתכם" – החג שהתחיל בטעות בריטית',
+        en: '"May the Fourth Be With You" – The Holiday That Started with a British Blunder'
       },
 
-      // Main fact body text
       body: {
-        he: "יום שני שמח! היום ה-4 במאי, ואם אתם מרגישים תנודות חזקות ב"כוח" (או סתם דחף בלתי נשלט לנופף במקל של מטאטא כאילו הוא חרב אור), יש לזה סיבה מצוינת.
-
-הנה העובדה היומית שלכם על יום מלחמת הכוכבים (Star Wars Day):
-
-🌌 "מאי הרביעי איתכם" – החג שהתחיל בטעות בריטית
-היום כל העולם חוגג את "May the 4th Be With You" (משחק מילים על הברכה האייקונית מהסרטים "May the Force be with you"). זה היום שבו זה לגיטימי לגמרי ללכת לעבודה עם אוזניים של יודה או לנשום בכבדות לתוך מסכה של דארת' ויידר בזמן ישיבת זום. אבל מה שיפה זה שהחג הזה בכלל לא הומצא על ידי ג'ורג' לוקאס או אולפני דיסני, אלא על ידי... פוליטיקאים בריטים יבשים..",
-        en: "Happy Monday! Since it is May 4th, and if you’re feeling strong "disturbances in the Force" (or just an uncontrollable urge to swing a broomstick like a lightsaber), there’s a very good reason for it.
-
-Here is your daily fact about Star Wars Day:
-
-🌌 "May the Fourth Be With You" – The Holiday That Started with a British Blunder
-Today, the entire world celebrates "May the 4th Be With You" (a pun on the iconic line "May the Force be with you"). It’s the one day a year where it’s socially acceptable to go to work wearing Yoda ears or breathe heavily into a Darth Vader mask during a Zoom call. But here’s the kicker: this holiday wasn’t invented by George Lucas or Disney. It was actually started by... dry British politicians."
+        he: 'היום כל העולם חוגג את "May the 4th Be With You" — משחק מילים על הברכה האייקונית "May the Force be with you". זה היום שבו לגיטימי ללכת לעבודה עם אוזניים של יודה. אבל החג הזה לא הומצא על ידי ג\'ורג\' לוקאס או דיסני — אלא על ידי פוליטיקאים בריטים יבשים לגמרי.',
+        en: 'Today the whole world celebrates "May the 4th Be With You" — a pun on the iconic line "May the Force be with you." It\'s the one day a year where wearing Yoda ears to work is socially acceptable. But this holiday wasn\'t invented by George Lucas or Disney — it was started by dry British politicians.'
       },
 
-      // YouTube song of the day
       youtube: {
-        url:    "https://youtu.be/Qki7oxKreEs",
-        song:   "Star Wars Flash Mob",
-        artist: "Violin Phonix"
+        url:    "https://www.youtube.com/watch?v=_D0ZQPqeJkk",
+        song:   "Star Wars Main Theme",
+        artist: "John Williams"
       },
 
-      // Funny fact popup
       funny: {
-        he: "הפעם הראשונה שבה נעשה שימוש במשפט "May the Fourth Be With You" הייתה ב-4 במאי 1979. זה היה היום שבו מרגרט תאצ'ר נבחרה לראשות ממשלת בריטניה. כדי לחגוג את הניצחון, המפלגה שלה פרסמה מודעה חגיגית בעיתון וכתבה: "May the Fourth Be with You, Maggie. Congratulations".
-
-כן, שמעתם נכון – המקור של יום החנונים העולמי הוא בכלל מודעת ברכה לפוליטיקאית שזכתה לכינוי "אשת הברזל". ג'ורג' לוקאס כנראה הסתכל על זה ואמר: "וואלה, זורם לי".",
-        en: "The very first recorded use of the phrase "May the Fourth Be With You" happened on May 4, 1979. This was the day Margaret Thatcher was elected as the Prime Minister of the UK. To celebrate her victory, her political party took out a full-page ad in the newspaper that read: "May the Fourth Be with You, Maggie. Congratulations."
-
-Yes, you read that right—the origin of the ultimate global nerd holiday is actually a congratulatory note to "The Iron Lady." George Lucas probably looked at that and thought, "Yeah, I'll take it.""
+        he: 'הפעם הראשונה שנעשה שימוש במשפט הייתה ב-4 במאי 1979 — היום שבו מרגרט תאצ\'ר נבחרה לראשות ממשלת בריטניה. המפלגה שלה פרסמה מודעה: "May the Fourth Be with You, Maggie. Congratulations." כן — המקור של יום החנונים העולמי הוא מודעת ברכה ל"אשת הברזל". ג\'ורג\' לוקאס כנראה אמר: וואלה, זורם לי.',
+        en: 'The first recorded use of the phrase was on May 4th, 1979 — the day Margaret Thatcher was elected UK Prime Minister. Her party placed a newspaper ad reading: "May the Fourth Be with You, Maggie. Congratulations." That\'s right — the origin of the ultimate global nerd holiday is a congratulatory note to "The Iron Lady." George Lucas probably saw it and thought: yeah, I\'ll take it.'
       },
 
-      // Deep dive popup
       deep: {
-        he: "מעבר לצחוקים וללייזרים, יום מלחמת הכוכבים הוא מקרה בוחן מרתק בפולקלור מודרני. זהו חג שצמח "מהשטח" (Grassroots) – המעריצים הם אלו שהפכו את התאריך הזה למסורת, ורק עשורים לאחר מכן התאגידים הבינו שיש פה פוטנציאל עסקי והצטרפו לחגיגה.
-
-זה מוכיח שסיפורים טובים הופכים למיתולוגיה מודרנית: הם מייצרים שפה משותפת, טקסים (מרתון סרטים) ואפילו קודים מוסריים, עד כדי כך שבמפקדי אוכלוסין במדינות מסוימות, אלפי אנשים מגדירים את הדת שלהם כ"ג'דיי". זה מראה כמה אנחנו, כבני אדם, זקוקים לסיפורים גדולים על טוב ורע כדי להרגיש שייכים למשהו – גם אם המשהו הזה כולל דובונים לוחמים על ירח מרוחק.",
-        en: "Beyond the lasers and the memes, Star Wars Day is a fascinating case study in modern folklore. This is a "grassroots" holiday—meaning the fans are the ones who turned this date into a tradition. It took decades before corporations realized there was huge money to be made and joined the party.
-
-It proves that great stories eventually become modern mythology. They create a shared language, rituals (like movie marathons), and even moral codes. It has grown so deep that in some national censuses, thousands of people actually list their religion as "Jedi." It shows just how much we, as humans, crave grand stories of good vs. evil to feel like we belong to something—even if that "something" involves warrior teddy bears on a forest moon."
+        he: 'יום מלחמת הכוכבים הוא מקרה בוחן מרתק בפולקלור מודרני. זהו חג שצמח מהשטח — המעריצים הפכו את התאריך למסורת, ורק עשורים לאחר מכן התאגידים הצטרפו. במפקדי אוכלוסין במדינות מסוימות, אלפי אנשים רשמו את דתם כ"ג\'דיי". זה מראה כמה אנחנו, כבני אדם, זקוקים לסיפורים גדולים על טוב ורע כדי להרגיש שייכים למשהו — גם אם המשהו הזה כולל דובונים לוחמים על ירח מרוחק.',
+        en: 'Star Wars Day is a fascinating case study in modern folklore. It\'s a grassroots holiday — fans turned the date into a tradition long before corporations realized there was money to be made. In some national censuses, thousands of people listed their religion as "Jedi." It shows how much we, as humans, crave grand stories of good vs. evil to feel like we belong to something — even if that something involves warrior teddy bears on a forest moon.'
       }
     };
   </script>
@@ -129,32 +105,9 @@ It proves that great stories eventually become modern mythology. They create a s
       background: linear-gradient(120deg, #2b1f14 0%, #5a3520 55%, #a0622e 100%);
       position: relative; overflow: hidden;
     }
-    .banner-wrap::after {
-      content: ''; position: absolute; inset: 0;
-      background: repeating-linear-gradient(
-        45deg, transparent, transparent 40px,
-        rgba(255,255,255,0.03) 40px, rgba(255,255,255,0.03) 80px
-      );
-    }
     .banner-wrap img.banner-img {
-      width: 100%; height: 100%; object-fit: cover; opacity: 0.82; display: block;
+      width: 100%; height: 100%; object-fit: cover; display: block;
     }
-    .banner-placeholder {
-      width: 100%; height: 100%;
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 6px;
-      position: relative; z-index: 1;
-    }
-    .banner-logo-text {
-      font-family: var(--font-display-he);
-      font-size: 2.4rem; font-weight: 900; color: #fff;
-      text-shadow: 0 2px 14px rgba(0,0,0,0.5);
-    }
-    .banner-tagline {
-      font-size: 0.8rem; color: rgba(255,255,255,0.65);
-      font-weight: 300; letter-spacing: 3px;
-    }
-    body.en .banner-logo-text { font-family: var(--font-display-en); }
 
     /* ── LAYOUT ── */
     .page-wrap { max-width: 780px; margin: 0 auto; padding: 0 28px 60px; }
@@ -314,7 +267,6 @@ It proves that great stories eventually become modern mythology. They create a s
     /* ── DESKTOP ── */
     @media (min-width: 640px) {
       .banner-wrap { height: 230px; }
-      .banner-logo-text { font-size: 2.8rem; }
       .fact-card { padding: 44px 48px 34px; }
       .fact-title { font-size: 1.9rem; }
       .fact-body { font-size: 1.05rem; }
@@ -326,7 +278,6 @@ It proves that great stories eventually become modern mythology. They create a s
     @media (max-width: 480px) {
       .page-wrap { padding: 0 16px 48px; }
       .banner-wrap { height: 170px; }
-      .banner-logo-text { font-size: 1.9rem; }
       .fact-card { padding: 28px 22px 22px; }
       .fact-title { font-size: 1.35rem; }
       .fact-bg-number { font-size: 6rem; }
@@ -337,11 +288,9 @@ It proves that great stories eventually become modern mythology. They create a s
 
   <!-- ══ BANNER ══ -->
   <div class="banner-wrap">
-    <!-- To use your logo: replace the div below with:
-         <img class="banner-img" src="YOUR_IMAGE_URL" alt="העובדה היומית"> -->
-<img class="banner-img" 
-     src="https://gadpal.github.io/daily-fact/daily_fact.png" 
-     alt="העובדה היומית">
+    <img class="banner-img"
+         src="https://gadpal.github.io/daily-fact/daily_fact.png"
+         alt="העובדה היומית">
   </div>
 
   <div class="page-wrap">
@@ -422,8 +371,6 @@ It proves that great stories eventually become modern mythology. They create a s
 
     const t = {
       he: {
-        bannerTitle:     "💡 העובדה היומית",
-        bannerTagline:   "משהו חדש. כל יום.",
         ytCaption:       "🎵 שיר היום",
         kicker:          "העובדה היומית",
         btnFunny:        "😄 עובדה מצחיקה",
@@ -433,8 +380,6 @@ It proves that great stories eventually become modern mythology. They create a s
         footer:          "200Apps · עובדה יומית · נוצר על ידי AI, נערך בידי אדם"
       },
       en: {
-        bannerTitle:     "💡 Daily Fact",
-        bannerTagline:   "Something new. Every day.",
         ytCaption:       "🎵 Song of the Day",
         kicker:          "FACT OF THE DAY",
         btnFunny:        "😄 Funny Fact",
@@ -455,8 +400,6 @@ It proves that great stories eventually become modern mythology. They create a s
       document.body.classList.toggle('en', !isHe);
       document.getElementById('lang-label').textContent = isHe ? 'EN' : 'HE';
 
-      document.getElementById('banner-title').textContent   = ui.bannerTitle;
-      document.getElementById('banner-tagline').textContent = ui.bannerTagline;
       document.getElementById('datestamp').textContent =
         new Date().toLocaleDateString(dateLocale, { weekday:'long', day:'numeric', month:'long' });
 
