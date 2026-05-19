@@ -40,6 +40,11 @@
         en: "After two solid months of tectonic indigestion and aggressive rumbling, Mount St. Helens in Washington State finally snapped. It erupted with such ridiculous force that it triggered the biggest landslide in recorded history and shaved hundreds of meters off its own height. An incredibly effective extreme weight-loss program, though severely damaging to local real estate values."
       },
 
+      audio: {
+        he: "audio/fact-03-he.mp3",
+        en: "audio/fact-03-en.mp3"
+      },
+
       youtube: {
         url:    "https://youtu.be/eFTLKWw542g?si=SO1xQr3S7V1XySXY",
         song:   "We Didn't Start the Fire",
@@ -127,30 +132,77 @@
     }
     .lang-btn:hover { background: var(--accent-mid); transform: scale(1.04); }
 
-    .yt-row { display: flex; justify-content: center; margin-bottom: 24px; }
-    .yt-btn {
+    /* ---- media row: audio + youtube side by side ---- */
+    .media-row {
+      display: flex; gap: 12px; margin-bottom: 24px;
+      flex-wrap: wrap; justify-content: center;
+    }
+
+    .yt-btn, .audio-btn {
       display: inline-flex; align-items: center; gap: 12px;
       background: var(--warm-white); border: 1.5px solid var(--rule);
       border-radius: 14px; padding: 12px 22px;
       text-decoration: none; color: var(--soft-ink);
-      box-shadow: var(--shadow); max-width: 420px; width: 100%;
+      box-shadow: var(--shadow);
       transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+      cursor: pointer; font-family: inherit;
     }
+    .yt-btn { flex: 1; min-width: 200px; max-width: 340px; }
+    .audio-btn { flex: 1; min-width: 180px; max-width: 280px; }
+
     .yt-btn:hover {
       border-color: #cc2200;
       box-shadow: 0 4px 22px rgba(204,34,0,0.14);
       transform: translateY(-2px);
     }
+    .audio-btn:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 22px rgba(122,74,44,0.18);
+      transform: translateY(-2px);
+    }
+    .audio-btn.playing {
+      border-color: var(--accent);
+      background: #fdf6f0;
+    }
+
     .yt-icon {
       width: 32px; height: 32px; flex-shrink: 0;
       background: #ff0000; border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
     }
-    .yt-icon svg { width: 16px; height: 16px; fill: #fff; }
-    .yt-label { display: flex; flex-direction: column; line-height: 1.35; overflow: hidden; }
-    .yt-caption { font-size: 0.7rem; color: var(--muted); }
-    .yt-song-name { font-size: 0.92rem; font-weight: 700; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .audio-icon {
+      width: 32px; height: 32px; flex-shrink: 0;
+      background: var(--accent); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .audio-btn.playing .audio-icon { background: var(--accent-mid); }
+
+    .yt-icon svg, .audio-icon svg { width: 16px; height: 16px; fill: #fff; }
+
+    .yt-label, .audio-label-wrap {
+      display: flex; flex-direction: column; line-height: 1.35; overflow: hidden;
+    }
+    .yt-caption, .audio-caption {
+      font-size: 0.7rem; color: var(--muted);
+    }
+    .yt-song-name, .audio-title {
+      font-size: 0.92rem; font-weight: 700; color: var(--ink);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
     .yt-artist { font-size: 0.78rem; color: var(--muted); }
+
+    /* progress bar */
+    .audio-progress-wrap {
+      height: 3px; background: var(--rule);
+      border-radius: 2px; margin-top: 5px; overflow: hidden;
+      width: 100%;
+    }
+    .audio-progress-bar {
+      height: 100%; width: 0%;
+      background: var(--accent); border-radius: 2px;
+      transition: width 0.4s linear;
+    }
 
     .divider {
       border: none; border-top: 1.5px solid var(--rule);
@@ -255,7 +307,6 @@
       .fact-title { font-size: 1.9rem; }
       .fact-body { font-size: 1.05rem; }
       .fact-bg-number { font-size: 10rem; }
-      .yt-btn { width: auto; }
     }
 
     @media (max-width: 480px) {
@@ -264,6 +315,7 @@
       .fact-card { padding: 28px 22px 22px; }
       .fact-title { font-size: 1.35rem; }
       .fact-bg-number { font-size: 6rem; }
+      .yt-btn, .audio-btn { max-width: 100%; }
     }
   </style>
 </head>
@@ -293,7 +345,22 @@
       </button>
     </div>
 
-    <div class="yt-row">
+    <!-- media row: audio button + youtube link -->
+    <div class="media-row">
+
+      <button class="audio-btn" id="audio-btn" onclick="toggleAudio()">
+        <div class="audio-icon">
+          <svg id="audio-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div class="audio-label-wrap">
+          <span class="audio-caption" id="audio-caption"></span>
+          <span class="audio-title" id="audio-title"></span>
+          <div class="audio-progress-wrap">
+            <div class="audio-progress-bar" id="audio-progress"></div>
+          </div>
+        </div>
+      </button>
+
       <a class="yt-btn" id="yt-link" href="#" target="_blank" rel="noopener">
         <div class="yt-icon">
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -304,7 +371,10 @@
           <span class="yt-artist" id="yt-artist"></span>
         </div>
       </a>
+
     </div>
+
+    <audio id="fact-audio"></audio>
 
     <hr class="divider" />
 
@@ -348,15 +418,19 @@
     const t = {
       he: {
         ytCaption:       "🎵 שיר היום",
+        audioCaption:    "🔊 האזן לעובדה",
+        audioTitle:      "הקראה בעברית",
         kicker:          "העובדה היומית",
         btnFunny:        "😄 עובדה מצחיקה",
         btnDeep:         "🔍 לעומק",
         popupFunnyTitle: "עובדה מצחיקה",
         popupDeepTitle:  "לעומק",
-        footer:          "200Apps · עובדה יומית · נוצר על ידי AI, נערך בידי אדם"
+        footer:          "200Apps"
       },
       en: {
         ytCaption:       "🎵 Song of the Day",
+        audioCaption:    "🔊 Listen",
+        audioTitle:      "Read aloud in English",
         kicker:          "FACT OF THE DAY",
         btnFunny:        "😄 Funny Fact",
         btnDeep:         "🔍 Go Deeper",
@@ -365,6 +439,42 @@
         footer:          "200Apps · Daily Fact · AI-generated, human-edited"
       }
     };
+
+    const audio   = document.getElementById('fact-audio');
+    const iconSvg = document.getElementById('audio-icon-svg');
+    const progress = document.getElementById('audio-progress');
+    const audioBtn = document.getElementById('audio-btn');
+
+    const ICON_PLAY  = '<path d="M8 5v14l11-7z"/>';
+    const ICON_PAUSE = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+
+    function toggleAudio() {
+      const lang = isHe ? 'he' : 'en';
+      if (!audio.src.endsWith(daily.audio[lang])) {
+        audio.src = daily.audio[lang];
+      }
+      if (audio.paused) {
+        audio.play();
+        iconSvg.innerHTML = ICON_PAUSE;
+        audioBtn.classList.add('playing');
+      } else {
+        audio.pause();
+        iconSvg.innerHTML = ICON_PLAY;
+        audioBtn.classList.remove('playing');
+      }
+    }
+
+    audio.addEventListener('timeupdate', () => {
+      if (audio.duration) {
+        progress.style.width = (audio.currentTime / audio.duration * 100) + '%';
+      }
+    });
+
+    audio.addEventListener('ended', () => {
+      iconSvg.innerHTML = ICON_PLAY;
+      audioBtn.classList.remove('playing');
+      progress.style.width = '0%';
+    });
 
     function render() {
       const lang       = isHe ? 'he' : 'en';
@@ -379,19 +489,26 @@
       document.getElementById('datestamp').textContent =
         new Date().toLocaleDateString(dateLocale, { weekday:'long', day:'numeric', month:'long' });
 
-      document.getElementById('tag').textContent        = daily.tag[lang];
-      document.getElementById('yt-caption').textContent = ui.ytCaption;
-      document.getElementById('yt-song').textContent    = daily.youtube.song;
-      document.getElementById('yt-artist').textContent  = daily.youtube.artist;
-      document.getElementById('yt-link').href           = daily.youtube.url;
+      document.getElementById('tag').textContent         = daily.tag[lang];
+      document.getElementById('audio-caption').textContent = ui.audioCaption;
+      document.getElementById('audio-title').textContent   = ui.audioTitle;
+      document.getElementById('yt-caption').textContent  = ui.ytCaption;
+      document.getElementById('yt-song').textContent     = daily.youtube.song;
+      document.getElementById('yt-artist').textContent   = daily.youtube.artist;
+      document.getElementById('yt-link').href            = daily.youtube.url;
 
-      document.getElementById('bg-number').textContent  = daily.number;
-      document.getElementById('kicker').textContent     = ui.kicker + " #" + daily.number;
-      document.getElementById('fact-title').textContent = daily.title[lang];
-      document.getElementById('fact-body').textContent  = daily.body[lang];
+      audio.src = daily.audio[lang];
+      iconSvg.innerHTML = ICON_PLAY;
+      audioBtn.classList.remove('playing');
+      progress.style.width = '0%';
 
-      document.getElementById('btn-funny').textContent  = ui.btnFunny;
-      document.getElementById('btn-deep').textContent   = ui.btnDeep;
+      document.getElementById('bg-number').textContent   = daily.number;
+      document.getElementById('kicker').textContent      = ui.kicker + " #" + daily.number;
+      document.getElementById('fact-title').textContent  = daily.title[lang];
+      document.getElementById('fact-body').textContent   = daily.body[lang];
+
+      document.getElementById('btn-funny').textContent   = ui.btnFunny;
+      document.getElementById('btn-deep').textContent    = ui.btnDeep;
 
       document.getElementById('popup-funny-title').textContent = ui.popupFunnyTitle;
       document.getElementById('popup-funny-body').textContent  = daily.funny[lang];
@@ -401,7 +518,15 @@
       document.getElementById('footer').textContent = ui.footer;
     }
 
-    function toggleLang() { isHe = !isHe; render(); }
+    function toggleLang() {
+      if (!audio.paused) {
+        audio.pause();
+        iconSvg.innerHTML = ICON_PLAY;
+        audioBtn.classList.remove('playing');
+      }
+      isHe = !isHe;
+      render();
+    }
 
     function openPopup(id) {
       document.getElementById('popup-' + id).classList.add('active');
